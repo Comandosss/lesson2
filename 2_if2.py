@@ -15,12 +15,21 @@
 
 """
 
-def main():
-    """
-    Эта функция вызывается автоматически при запуске скрипта в консоли
-    В ней надо заменить pass на ваш код
-    """
-    pass
+def string_comparison(line_1, line_2):  
+    if type(line_1) != str and type(line_2) != str:
+        return 0 
+    else:   
+        if line_1 == line_2:
+            return 1
+        elif line_1 != line_2 and line_2 == 'learn':
+            return 3
+        elif line_1 != line_2 and len(line_1) > len(line_2):
+            return 2
     
 if __name__ == "__main__":
-    main()
+    counter = 0
+    print(string_comparison(2, 3))
+    print(string_comparison('Pythons', 'Pythons'))
+    print(string_comparison('Python', 'burn'))
+    print(string_comparison('Pythons', 'learn'))
+    

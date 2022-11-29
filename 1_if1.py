@@ -13,13 +13,32 @@
 * Вывести содержимое переменной на экран
 
 """
+age_user = input('Сколько вам лет? ')
 
-def main():
-    """
-    Эта функция вызывается автоматически при запуске скрипта в консоли
-    В ней надо заменить pass на ваш код
-    """
-    pass
+def years(age):
+    try:
+        age = float(age)
+    except (TypeError, ValueError):
+        print('Неверный ввод! Введите числовое значение либо числовое значение с точкой!')
+        exit()
+    else:
+        if age < 0:
+            return 'Введите положительное значение!'
+        elif 0 <= age <= 3:
+            return 'Ты еще малыш'
+        elif 3 <= age <= 6:
+            return 'Ходишь в детский сад'
+        elif 6 < age <= 18:
+            return 'Учишься в школе'
+        elif 18 < age <= 23:
+            return 'Учишься в ВУЗе'
+        elif 23 < age <= 61:
+            return 'Работаешь' 
+        elif 61 < age <= 122:
+            return 'Пенсионер' 
+        else:
+            return 'Люди столько не живут'
 
 if __name__ == "__main__":
-    main()
+    result_age_user = years(age_user)
+    print(result_age_user)  

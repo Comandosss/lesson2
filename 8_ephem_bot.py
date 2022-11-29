@@ -12,22 +12,14 @@
   бота отвечать, в каком созвездии сегодня находится планета.
 
 """
-import logging
+import logging, settings, ephem, datetime
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
-                    filename='bot.log')
-
-
-PROXY = {
-    'proxy_url': 'socks5://t1.learn.python.ru:1080',
-    'urllib3_proxy_kwargs': {
-        'username': 'learn',
-        'password': 'python'
-    }
-}
+                    filename='bot.log',
+                    datefmt='%H:%M:%S')
 
 
 def greet_user(update, context):
@@ -36,21 +28,49 @@ def greet_user(update, context):
     update.message.reply_text(text)
 
 
+def add_planet(update, context):
+    now = datetime.date.today()
+    now_date = str(now.strftime('%Y/%m/%d')) #Форматы даты
+    real_planets = {'Mercury': ephem.Mercury(now_date), 
+        'Venus': ephem.Venus(now_date), 
+        'Mars': ephem.Mars(now_date), 
+        'Jupiter': ephem.Jupiter(now_date), 
+        'Saturn': ephem.Saturn(now_date), 
+        'Uranus': ephem.Uranus(now_date), 
+        'Neptune': ephem.Neptune(now_date),
+        'Pluto': ephem.Pluto(now_date), 
+        'Sun': ephem.Sun(now_date), 
+        'Moon': ephem.Moon(now_date)
+        }
+
+    text = update.message.text.split()
+
+    input_planet = text[1].capitalize()
+
+    if input_planet in real_planets:
+        selected_planet = ephem.constellation(real_planets[input_planet])
+        update.message.reply_text(f'Сегодня {str(now.strftime("%d.%m.%Y"))}, {input_planet} находится в созвездии: {selected_planet[1]}')
+    else:
+        update.message.reply_text('Введите планету на английском языке! Например: /planet Mars')
+
+
 def talk_to_me(update, context):
     user_text = update.message.text
     print(user_text)
-    update.message.reply_text(text)
+    update.message.reply_text(user_text)
 
 
 def main():
-    mybot = Updater("КЛЮЧ, КОТОРЫЙ НАМ ВЫДАЛ BotFather", request_kwargs=PROXY, use_context=True)
+    mybot = Updater(settings.API_KEY, use_context=True)
 
-    dp = mybot.dispatcher
-    dp.add_handler(CommandHandler("start", greet_user))
-    dp.add_handler(MessageHandler(Filters.text, talk_to_me))
+    dp = mybot.dispatcher 
+    dp.add_handler(CommandHandler('start', greet_user))
+    dp.add_handler(CommandHandler('planet', add_planet))
+    dp.add_handler(MessageHandler(Filters.text, talk_to_me)) 
+    logging.info('Бот запустился') 
 
-    mybot.start_polling()
-    mybot.idle()
+    mybot.start_polling()  
+    mybot.idle() 
 
 
 if __name__ == "__main__":

@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+settings.py
+.vscode
+.editorconfig
 
 # C extensions
 *.so
