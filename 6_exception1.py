@@ -10,10 +10,11 @@
     
 """
 
+
 def hello_user():
     while True:
         try:
-            user_say = input('Как дела? ')
+            user_say = input('Как дела? ').capitalize()
         except KeyboardInterrupt:
             print('Пока!')
             break
@@ -23,6 +24,6 @@ def hello_user():
             else:
                 print('Угадай ответ, чтобы закончить диалог')
 
-    
+
 if __name__ == "__main__":
-        hello_user()
+    hello_user()
