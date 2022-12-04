@@ -30,31 +30,30 @@ logging.basicConfig(
 
 def greet_user(update, context):
     text = 'Вызван /start'
-    print(text)
     update.message.reply_text(text)
 
 
 def add_planet(update, context):
     now = datetime.date.today()
-    now_date = str(now.strftime('%Y/%m/%d'))
+    today_date = now.strftime('%Y/%m/%d')
     real_planets = {
-        'Mercury': ephem.Mercury(now_date),
-        'Venus': ephem.Venus(now_date),
-        'Mars': ephem.Mars(now_date),
-        'Jupiter': ephem.Jupiter(now_date),
-        'Saturn': ephem.Saturn(now_date),
-        'Uranus': ephem.Uranus(now_date),
-        'Neptune': ephem.Neptune(now_date),
-        'Pluto': ephem.Pluto(now_date),
-        'Sun': ephem.Sun(now_date),
-        'Moon': ephem.Moon(now_date)
+        'Mercury': ephem.Mercury(today_date),
+        'Venus': ephem.Venus(today_date),
+        'Mars': ephem.Mars(today_date),
+        'Jupiter': ephem.Jupiter(today_date),
+        'Saturn': ephem.Saturn(today_date),
+        'Uranus': ephem.Uranus(today_date),
+        'Neptune': ephem.Neptune(today_date),
+        'Pluto': ephem.Pluto(today_date),
+        'Sun': ephem.Sun(today_date),
+        'Moon': ephem.Moon(today_date),
     }
     text = update.message.text.split()
     input_plan = text[1].capitalize()
     if input_plan in real_planets:
         select_plan = ephem.constellation(real_planets[input_plan])
         update.message.reply_text(
-            f'{now_date}: {input_plan} находится в созвездии: {select_plan[1]}'
+            f'{today_date}: {input_plan} находится в созвездии: {select_plan[1]}'
         )
     else:
         update.message.reply_text('Введи планету! Например: /planet Mars')
@@ -62,7 +61,6 @@ def add_planet(update, context):
 
 def talk_to_me(update, context):
     user_text = update.message.text
-    print(user_text)
     update.message.reply_text(user_text)
 
 
