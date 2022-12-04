@@ -14,8 +14,7 @@ def hello_user():
         user_say = input('Как дела? ').capitalize()
         if user_say == 'Хорошо':
             break
-        else:
-            print('Угадай ответ, чтобы закончить диалог')
+        print('Угадай ответ, чтобы закончить диалог')
 
 
 if __name__ == "__main__":
