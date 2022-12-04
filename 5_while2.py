@@ -14,14 +14,14 @@
 """
 
 
-def ask_user():
+def ask_user(answer):
     while True:
-        quest = input("Введите вопрос: ").capitalize()
-        if quest in questions_and_answers:
-            print(questions_and_answers[quest])
+        question = input("Введите вопрос: ").capitalize()
+        if question in answer:
+            answer = questions_and_answers[question]
+            print(answer)
             break
-        else:
-            print("Переформулируй вопрос!")
+        print("Переформулируй вопрос!")
 
 
 if __name__ == "__main__":
@@ -31,4 +31,4 @@ if __name__ == "__main__":
         "Какие планы на сегодня?": "Пробежать полумарафон",
         "Чем планируешь заниматься?": "Писать код",
     }
-    ask_user()
+    ask_user(questions_and_answers)
