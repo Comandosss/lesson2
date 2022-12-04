@@ -16,7 +16,7 @@
 
 
 def string_comparison(line_1, line_2):
-    if isinstance(line_1, int) and isinstance(line_2, int):
+    if not isinstance(line_1, str) and not isinstance(line_2, str):
         return 0
     elif line_1 == line_2:
         return 1
@@ -27,7 +27,6 @@ def string_comparison(line_1, line_2):
 
 
 if __name__ == "__main__":
-    counter = 0
     print(string_comparison(2, 3))
     print(string_comparison('Pythons', 'Pythons'))
     print(string_comparison('Python', 'burn'))
