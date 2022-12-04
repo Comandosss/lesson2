@@ -14,7 +14,7 @@
 """
 
 
-def input_age_user(age):
+def age_determination(age):
     try:
         age = int(age)
     except (TypeError, ValueError):
@@ -34,5 +34,5 @@ def input_age_user(age):
 
 if __name__ == "__main__":
     age_user = input('Сколько вам лет? ')
-    result_age_user = input_age_user(age_user)
+    result_age_user = age_determination(age_user)
     print(result_age_user)
